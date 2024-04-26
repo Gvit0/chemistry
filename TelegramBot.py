@@ -2,19 +2,23 @@ import telebot
 from telebot import types
 import function
 token='7117739871:AAGRujEaBFJOXSXW7NsVzSoF_k0npj6PS1w'
+
+
+functionsBut = ""
 creatorCI = 5719001702
 bot=telebot.TeleBot(token)
 select = {}
 dat = {}
-def menu(chat):
+def menu(chatId):
 	global select
-	select[chat] = "main"
-	markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
+	select[chatId] = "main"
+	#for func in functionsBut:
 
+	markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
 	fun1 = types.KeyboardButton('Найти молярную массу')
 	fun2 = types.KeyboardButton('Найти массовую долю')
 	markup.row(fun1,fun2)
-	bot.send_message(chat,'Выберете в меню', reply_markup=markup)
+	bot.send_message(chatId,'Выберете в меню', reply_markup=markup)
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
