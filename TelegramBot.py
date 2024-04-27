@@ -71,7 +71,7 @@ def message_reply(message):
 		elif select.get(message.chat.id,'main') == "PercentageByMass2":
 			print(dat[message.chat.id])
 			print(message.text)
-			bot.reply_to(message, f": {function.PercentageByMass(dat[message.chat.id],message.text)}")
+			bot.reply_to(message, f"Содержание {message.text}: {function.PercentageByMass(dat[message.chat.id],message.text)}%")
 		elif select.get(message.chat.id,'main') == "bug":
 			bot.send_message(creatorCI, f"Сообщение через bug: {message.text}")
 			bot.send_message(message.chat.id,"Отправлено Спасибо")
