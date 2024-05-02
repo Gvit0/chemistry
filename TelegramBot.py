@@ -74,6 +74,6 @@ def message_reply(message):
 			bot.reply_to(message, f"Содержание {message.text}: {function.PercentageByMass(dat[message.chat.id],message.text)}%")
 		elif select.get(message.chat.id,'main') == "bug":
 			bot.send_message(creatorCI, f"Сообщение через bug: {message.text}")
-			bot.send_message(message.chat.id,"Отправлено Спасибо")
-			select[message.chat.id] = "menu "
+			bot.send_message(message.chat.id,"Отправлено. Спасибо")
+			select[message.chat.id] = "menu"
 bot.infinity_polling()
