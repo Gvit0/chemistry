@@ -31,10 +31,10 @@ def PercentageByMass(formul,objF):
 				objP+= objT
 		if objP == objF:
 			objP = obj
+			break
 		else:
 			objP =""
 	if objP =="":
 		return 0
-			break
 	percentage =(float(FindMolMass([objP]))/ float(FindMolMass(formul)))*100
 	return percentage
