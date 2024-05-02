@@ -23,7 +23,7 @@ def FindMolMass(formul):
 		
 def PercentageByMass(formul,objF):
 	objP = ""
-	
+	Fobj = ""
 	for obj in formul:
 		objP = ""
 		for objT in obj:
@@ -31,6 +31,10 @@ def PercentageByMass(formul,objF):
 				objP+= objT
 		if objP == objF:
 			objP = obj
+		else:
+			objP =""
+	if objP =="":
+		return 0
 			break
 	percentage =(float(FindMolMass([objP]))/ float(FindMolMass(formul)))*100
 	return percentage
