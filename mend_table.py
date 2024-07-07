@@ -51,7 +51,7 @@ table_mend=[
     {"formul":"Sn","atom_mass":119,"id":50, "name":"Олово", "description":"Полупроводниковый материал, используется в электронике и в производстве спецматериалов"},
     {"formul":"Sb","atom_mass":122,"id":51, "name":"Сурьма", "description":"Полупроводниковый материал, используется в электронике и в производстве спецматериалов"},
     {"formul":"Te","atom_mass":128,"id":52, "name":"Теллур", "description":"Полупроводниковый материал, используется в электронике и в производстве спецматериалов"},
-    {"formul":"I","atom_mass":127,"id":53, "name":"Иод", "description":"Химический элемент, используется в медицине и в производстве спецматериалов"},
+    {"formul":"I","atom_mass":127,"id":53, "name":"Йод", "description":"Химический элемент, используется в медицине и в производстве спецматериалов"},
     {"formul":"Xe","atom_mass":131,"id":54, "name":"Ксенон", "description":"Инертный газ, используется в лампах и в криогенике"},
     {"formul":"Cs","atom_mass":133,"id":55, "name":"Цезий", "description":"Алкалий, используется в атомных часах и в производстве специальных стёкол"},
     {"formul":"Ba","atom_mass":137,"id":56, "name":"Барий", "description":"Алкалий, используется в производстве пиротехники и в медицине"},
@@ -125,4 +125,14 @@ def get_use_id(id_):
 def get_use_formul(formul_):
     for dobject in table_mend:
         if formul_ == dobject.get("formul"):
+            return dobject
+
+def get_use_name(name_):
+    for dobject in table_mend:
+        if name_.lower() == dobject.get("name").lower():
+            return dobject
+        
+def get_use_atom_mass(mass_):
+    for dobject in table_mend:
+        if mass_ == dobject.get("atom_mass"):
             return dobject
