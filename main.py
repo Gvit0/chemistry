@@ -10,6 +10,7 @@ def PrintMenu():
 	print("1)Найти молярную массу")
 	print("2)Уравнять-")
 	print("3)Найти массовую долю")
+	print("4)Информация о формуле")
 	print("q- Выход")
 	print("h- информация")
 	print("")
@@ -34,10 +35,16 @@ def MenuInput(InMen):
 		objF =input('Найти долю ')
 		otvet = calc.PercentageByMass(formul,objF)
 		print(f"Ответ: {otvet}%")
+	elif int(InMen)==4:
+		formulT=input("Формула: ")
+		formul=handler.FormulToMass(formulT)[0]
+		info=handler.infoFormul(formul)
+		print(f"Информация о {formulT}:")
+		print(f"Органический: {handler.organickDetect(formul)}")
 	elif int(InMen) ==0:
 		print(handler.FormulToMass(input("формула:")))
 		
 while True:
 	PrintMenu()
 	MenuInput(input("Номер меню: "))
-	sleep(7)
+	print("=================================")

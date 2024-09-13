@@ -1,0 +1,6 @@
+есть функция handler.FormulToMass("H2O") которое возрощяет [['H2','O']]. есть таблица Менделеева table_mend=[{"formul":"H", "atom_mass":1, "id":1, "name":"Водород", "description":"Легчайший и наиболее распространенный химический элемент"},...]
+
+и функции получить get_use_id(id_),get_use_formul(formul),get_use_name(name),get_use_atom_mass(mass) (id=атомный номер)
+
+
+нужна функция чтобы определить что это: оксид,гидроксид(основание),кислота,соль. Ввод из handler.FormulToMass()
