@@ -83,7 +83,7 @@ def get_compound_type(formula):
     Returns:
     str: A string indicating the type of the compound (either 'oxide', 'hydroxide', 'acid', or 'salt').
     """
-    if organickDetect():
+    if organickDetect(formula):
         return 'Органические формулы не подерживаются'
     else:
         # Get the atomic masses of all elements in the formula
