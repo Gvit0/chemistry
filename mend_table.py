@@ -111,11 +111,40 @@ table_mend=[
     {"formul":"Ds","atom_mass":271,"id":110, "name":"Дармштадтий", "description":"Радиоактивный металл, используется в ядерной энергетике и ядерном оружии"}
 ]
 
+metal_activity = ["Li", "Rb", "K", "Ba", "Sr", "Ca", "Na", "Mg", "Al", "Mn", "Zn", "Cr", "Fe", "Cd", "Co", "Ni", "Sn", "Pb", "H2", "Sb", "Bi", "Cu", "Hg", "Ag", "Au"]
 
 upReg= "QWERTYUIOPASDFGHJKLZXCVBNM"
 downReg= "qwertyuiopasdfghjklzxcvbnm"
 num ="1234567890"
 funcSumbol = "+="
+
+def compare_metal_positions(metal1, metal2):
+    """
+    Compare the positions of two metals in the activity series.
+
+    Args:
+        metal_activity (list): The complete activity series of metals.
+        metal1 (str): The first metal to compare.
+        metal2 (str): The second metal to compare.
+
+    Returns:
+        bool or None: True if metal1 comes after metal2, False if metal1 comes before metal2, or None if one or both metals are not in the activity series.
+    """
+    if metal1 not in metal_activity or metal2 not in metal_activity:
+        return None
+
+    index1 = metal_activity.index(metal1)
+    index2 = metal_activity.index(metal2)
+
+    if index1 < index2:
+        return False
+    elif index1 > index2:
+        return True
+    else:
+        return None
+
+
+
 
 def get_use_id(id_):
     for dobject in table_mend:
