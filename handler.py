@@ -43,13 +43,15 @@ def FormulToMass(formulIn):
             formul.append([sumbol])
             tempMass = []
             tempForm = ""
-            #print(str(formul)+str(tempMass)+tempForm+ str(t))
+            #print("!!!!!!!!!!" + str(formul)+str(tempMass)+tempForm)
     tempMass.append(tempForm)
     formul.append(tempMass)
     for obje in formul:
+        
         for obj in obje:
+            #print(f"{formul}         {obje}       {obj}")
             if obj == "" or obj == " ":
-                obj.remove(obj)
+                obje.remove(obj)
     return formul
 
 def objToText(obj_):
@@ -59,19 +61,11 @@ def objToText(obj_):
         return f"Формула: {obj_["formul"]}  Название: {obj_["name"]}  Описание: {obj_["description"]}  Атомная масса: {obj_["atom_mass"]}  Атомный номер: {obj_["id"]}"
         
 def organickDetect(formul):
-    f=""
-    for obj in formul:
-        if "C" in obj:
-            f+="C"
-        if "H" in obj:
-            f+="H"
-    if f=="CH" or f=="HC":
-        return True
-    else:
-        return False
-
-
-
+    has_C = 'C' in formul  # Проверяем, есть ли 'C' в формуле
+    has_H = 'H' in formul  # Проверяем, есть ли 'H' в формуле
+    
+    # Проверяем наличие углерода и водорода
+    return has_C and has_H  # Возвращаем True, если есть углерод и водород
 
 def get_compound_type(formula):
     """
@@ -81,31 +75,35 @@ def get_compound_type(formula):
     formula (list): A list of subformulas, as returned by handler.FormulToMass().
 
     Returns:
-    str: A string indicating the type of the compound (either 'oxide', 'hydroxide', 'acid', or 'salt').
+    str: A string indicating the type of the compound (either 'oxide', 'hydroxide', 'acid', 'salt', or an error message for organic compounds).
     """
     if organickDetect(formula):
-        return 'Органические формулы не подерживаются'
-    else:
-        # Get the atomic masses of all elements in the formula
-        atomic_masses = {element['formul']: element['atom_mass'] for element in MT.table_mend}
+        return 'Органические формулы не поддерживаются'
 
-        # Calculate the total mass of the formula
-        total_mass = sum([MT.get_use_atom_mass(mass) for subformula in formula for mass in subformula])
+    # Получаем атомные массы всех элементов в формуле
+    atomic_masses = {element['formul']: element['atom_mass'] for element in MT.table_mend}
 
-        # Check if the formula is an oxide
-        if len(formula) == 2 and formula[0][-1] == formula[1][-1] == 'O' and total_mass == MT.get_use_atom_mass(formula[0][:-1]) * 2 + MT.get_use_atom_mass('O'):
-            return 'oxide'
+    # Вычисляем массу формулы
+    total_mass = sum([MT.get_use_atom_mass(mass) or 0 for subformula in formula for mass in subformula])
 
-        # Check if the formula is a hydroxide
-        if len(formula) == 2 and formula[0] == ['O', 'H'] and MT.get_use_name(formula[1][0]) == 'Металл' and total_mass == MT.get_use_atom_mass('H') + MT.get_use_atom_mass(formula[1][0]):
-            return 'hydroxide'
+    # Проверка, является ли формула оксидом
+    if len(formula) == 2 and formula[0][-1] == 'O' and formula[1].startswith('H'):
+        return 'oxide'
 
-        # Check if the formula is an acid
-        if len(formula) == 2 and formula[0] == ['H'] and MT.get_use_name(formula[1][0]) == 'Неметалл' and total_mass == MT.get_use_atom_mass('H') + MT.get_use_atom_mass(formula[1][0]):
-            return 'acid'
+    # Проверка, является ли формула гидроксидом
+    if len(formula) == 2 and formula[0] == 'H' and formula[1] == 'O':
+        return 'hydroxide'
 
-        # If none of the above conditions are met, the formula is a salt
-        return 'salt'
+    # Проверка, является ли формула кислотой
+    if len(formula) == 2 and formula[0] == 'H' and MT.get_use_name(formula[1]) == 'Неметалл':
+        return 'acid'
+
+    # Если ни одно из условий не выполнено, определяем формулу как соль
+    return 'salt'
+
+# Примеры использования
+# print(get_compound_type(['H2O']))  # Например для воды
+# print(get_compound_type(['NaCl']))  # Например для поваренной соли
 
 def infoFormul(formul):
     out ={}
